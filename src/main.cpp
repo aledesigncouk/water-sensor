@@ -58,17 +58,17 @@ void loop() {
   // send data by Bluetooth
   BTserial.print(LVL_1);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(LVL_2);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(LVL_3);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(LVL_4);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(LVL_5);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(LVL_6);
   BTserial.print(",");
-  BTserial.print("null");
+  BTserial.print(WASTE);
   BTserial.print(";");
 
   // markers
