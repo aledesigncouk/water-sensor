@@ -22,6 +22,7 @@ const int PIN_4 = 15;      // lev 4
 const int PIN_5 = 18;      // lev 5
 const int PIN_6 = 19;      // lev 6
 const int PIN_WASTE = 20;  // waste full
+const int LED_FULL = 8;
 
 void setup() {
   Serial.begin(9600);
@@ -34,6 +35,7 @@ void setup() {
   pinMode(PIN_5, INPUT_PULLUP);
   pinMode(PIN_6, INPUT_PULLUP);
   pinMode(PIN_WASTE, INPUT_PULLUP);
+  pinMode(LED_FULL, LOW);
 
   // initialize the OLED object
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -46,14 +48,13 @@ void setup() {
 }
 
 void loop() {
-  int LVL_1 = digitalRead(PIN_1);      // detect the status of the pin
-  int LVL_2 = digitalRead(PIN_2);      // digitalRead(LVL_3);
-  int LVL_3 = digitalRead(PIN_3);      // digitalRead(LVL_4);
-  int LVL_4 = digitalRead(PIN_4);      // digitalRead(LVL_5);
-  int LVL_5 = digitalRead(PIN_5);      // digitalRead(LVL_6);
-  int LVL_6 = digitalRead(PIN_6);      // digitalRead(LVL_7);
-  int WASTE = digitalRead(PIN_WASTE);  // digitalRead(LVL_8);
-  // Serial.println(LVL_1);
+  int LVL_1 = digitalRead(PIN_1);
+  int LVL_2 = digitalRead(PIN_2);
+  int LVL_3 = digitalRead(PIN_3);
+  int LVL_4 = digitalRead(PIN_4);
+  int LVL_5 = digitalRead(PIN_5);
+  int LVL_6 = digitalRead(PIN_6);
+  int WASTE = digitalRead(PIN_WASTE);
 
   // send data by Bluetooth, create an algoritm and a percentage output
   BTserial.print(LVL_1);
@@ -71,7 +72,7 @@ void loop() {
   BTserial.print(WASTE);
   BTserial.print(";");
 
-  // markers
+  // level markers
   display.setRotation(3);
   display.setTextColor(WHITE, BLACK);
   display.setCursor(4, 90);
@@ -128,13 +129,14 @@ void loop() {
     display.drawRect(20, 85, 40, 15, WHITE);
   }
 
-  // design a better waste warn + red led
   if (WASTE == 0) {
+    digitalWrite(LED_FULL, HIGH);
     display.fillRect(5, 114, 55, 13, WHITE);
     display.setCursor(22, 117);
     display.setTextColor(BLACK, WHITE);
     display.println("FULL");
   } else {
+    digitalWrite(LED_FULL, LOW);
     display.drawRect(5, 114, 55, 13, WHITE);
     display.setCursor(28, 117);
     display.println("ok");
