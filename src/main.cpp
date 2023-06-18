@@ -55,7 +55,7 @@ void loop() {
   int WASTE = digitalRead(PIN_WASTE);  // digitalRead(LVL_8);
   // Serial.println(LVL_1);
 
-  // send data by Bluetooth
+  // send data by Bluetooth, create an algoritm and a percentage output
   BTserial.print(LVL_1);
   BTserial.print(",");
   BTserial.print(LVL_2);
@@ -73,6 +73,7 @@ void loop() {
 
   // markers
   display.setRotation(3);
+  display.setTextColor(WHITE, BLACK);
   display.setCursor(4, 90);
   display.println("1-");
   display.setCursor(4, 72);
@@ -85,7 +86,9 @@ void loop() {
   display.println("5-");
   display.setCursor(4, 3);
   display.println("6-");
-  display.setTextColor(WHITE, BLACK);
+
+  display.setCursor(3, 104);
+  display.println("waste tank");
 
   // level bars
   display.display();
@@ -127,9 +130,14 @@ void loop() {
 
   // design a better waste warn + red led
   if (WASTE == 0) {
-    display.fillRect(20, 102, 40, 15, WHITE);
+    display.fillRect(5, 114, 55, 13, WHITE);
+    display.setCursor(22, 117);
+    display.setTextColor(BLACK, WHITE);
+    display.println("FULL");
   } else {
-    display.drawRect(20, 102, 40, 15, WHITE);
+    display.drawRect(5, 114, 55, 13, WHITE);
+    display.setCursor(28, 117);
+    display.println("ok");
   }
 
   display.display();
