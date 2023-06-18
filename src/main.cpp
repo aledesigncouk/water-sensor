@@ -12,27 +12,28 @@ Adafruit_SSD1306 display(
     128, 64, &Wire,
     -1);  // (width, height, wire, reset pin (-1 share Arduino reset))
 
-SoftwareSerial BTserial(10, 11);  // RX | TX
+SoftwareSerial BTserial(0, 1);  // RX | TX
 
 // tank sensors
-const int LVL_1 = 10;  // lev 1
-const int LVL_2 = 16;  // lev 2
-const int LVL_3 = 14;  // lev 3
-const int LVL_4 = 15;  // lev 4
-const int LVL_5 = 18;  // lev 5
-const int LVL_6 = 19;  // lev 6
-const int WASTE = 20;  // waste full
+const int PIN_1 = 10;      // lev 1
+const int PIN_2 = 16;      // lev 2
+const int PIN_3 = 14;      // lev 3
+const int PIN_4 = 15;      // lev 4
+const int PIN_5 = 18;      // lev 5
+const int PIN_6 = 19;      // lev 6
+const int PIN_WASTE = 20;  // waste full
 
 void setup() {
   Serial.begin(9600);
   BTserial.begin(9600);
   // set digital pins
-  pinMode(LVL_2, INPUT);
-  pinMode(LVL_3, INPUT);
-  pinMode(LVL_4, INPUT);
-  pinMode(LVL_5, INPUT);
-  pinMode(LVL_6, INPUT);
-  pinMode(WASTE, INPUT);
+  pinMode(PIN_1, INPUT_PULLUP);
+  pinMode(PIN_2, INPUT_PULLUP);
+  pinMode(PIN_3, INPUT_PULLUP);
+  pinMode(PIN_4, INPUT_PULLUP);
+  pinMode(PIN_5, INPUT_PULLUP);
+  pinMode(PIN_6, INPUT_PULLUP);
+  pinMode(PIN_WASTE, INPUT_PULLUP);
 
   // initialize the OLED object
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -45,13 +46,13 @@ void setup() {
 }
 
 void loop() {
-  int LVL_1 = digitalRead(LVL_1);  // detect the status of the pin
-  int LVL_2 = 0;                   // digitalRead(LVL_3);
-  int LVL_3 = 0;                   // digitalRead(LVL_4);
-  int LVL_4 = 0;                   // digitalRead(LVL_5);
-  int LVL_5 = 0;                   // digitalRead(LVL_6);
-  int LVL_6 = 0;                   // digitalRead(LVL_7);
-  int WASTE = 0;                   // digitalRead(LVL_8);
+  int LVL_1 = digitalRead(PIN_1);      // detect the status of the pin
+  int LVL_2 = digitalRead(PIN_2);      // digitalRead(LVL_3);
+  int LVL_3 = digitalRead(PIN_3);      // digitalRead(LVL_4);
+  int LVL_4 = digitalRead(PIN_4);      // digitalRead(LVL_5);
+  int LVL_5 = digitalRead(PIN_5);      // digitalRead(LVL_6);
+  int LVL_6 = digitalRead(PIN_6);      // digitalRead(LVL_7);
+  int WASTE = digitalRead(PIN_WASTE);  // digitalRead(LVL_8);
   // Serial.println(LVL_1);
 
   // send data by Bluetooth
@@ -88,51 +89,51 @@ void loop() {
 
   // level bars
   display.display();
-  if (LVL_6 == 1) {
+  if (LVL_6 == 0) {
     display.fillRect(20, 0, 40, 15, WHITE);
   } else {
     display.drawRect(20, 0, 40, 15, WHITE);
   }
 
-  if (LVL_5 == 1) {
+  if (LVL_5 == 0) {
     display.fillRect(20, 17, 40, 15, WHITE);
   } else {
     display.drawRect(20, 17, 40, 15, WHITE);
   }
 
-  if (LVL_4 == 1) {
+  if (LVL_4 == 0) {
     display.fillRect(20, 34, 40, 15, WHITE);
   } else {
     display.drawRect(20, 34, 40, 15, WHITE);
   }
 
-  if (LVL_3 == 1) {
+  if (LVL_3 == 0) {
     display.fillRect(20, 51, 40, 15, WHITE);
   } else {
     display.drawRect(20, 51, 40, 15, WHITE);
   }
 
-  if (LVL_2 == 1) {
+  if (LVL_2 == 0) {
     display.fillRect(20, 68, 40, 15, WHITE);
   } else {
     display.drawRect(20, 68, 40, 15, WHITE);
   }
 
-  if (LVL_1 == 1) {
+  if (LVL_1 == 0) {
     display.fillRect(20, 85, 40, 15, WHITE);
   } else {
     display.drawRect(20, 85, 40, 15, WHITE);
   }
 
   // design a better waste warn + red led
-  if (WASTE == 1) {
+  if (WASTE == 0) {
     display.fillRect(20, 102, 40, 15, WHITE);
   } else {
     display.drawRect(20, 102, 40, 15, WHITE);
   }
 
-  // display.display();
-  // display.clearDisplay();
+  display.display();
+  display.clearDisplay();
 
-  delay(5000);
+  delay(1000);
 }
