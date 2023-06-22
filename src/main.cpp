@@ -1,10 +1,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-// #include <DFRobot_SIM808.h>
 #include <SPI.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
-// #include <sim808.h>
 
 // Declaration for SSD1306 display connected using I2C
 #define SCREEN_ADDRESS 0x3C
