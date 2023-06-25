@@ -28,6 +28,20 @@ If you are using the Arduino IDE, just copy the main.cpp file, rename it as .ino
 
 ### Schematics
 
+| HC-06 | Arduino |
+| :---- | :------ |
+| `Rx`  | `Tx`    |
+| `Tx`  | `Rx`    |
+| `Vcc` | `Vcc`   |
+| `Gnd` | `Gnd`   |
+
+| I2C Oled  | Arduino (Sparkfun Pro Micro) |
+| :-------- | :--------------------------- |
+| `Sck`     | `3 (Scl)`                    |
+| `Sda`     | `2 (Sda)`                    |
+| `Vcc/Vdd` | `Vcc`                        |
+| `Gnd`     | `Gnd`                        |
+
 ![alt text](./imgs/schematics.png)
 
 ### Pro Micro pinout reference
