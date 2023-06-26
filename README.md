@@ -3,7 +3,7 @@
 A simple digital gauge to monitor the water level of two tanks:
 
 - Fresh water (6 static levels)
-- Watse water (Full tank indicator)
+- Waste water (Full tank indicator)
 
 ## Description
 
